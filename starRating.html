@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Rating</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+
+        form {
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        label {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: block;
+            color: #333;
+        }
+
+        select {
+            padding: 8px;
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        select:focus {
+            border-color: #007bff;
+        }
+
+        .star-rating {
+            display: flex;
+            direction: rtl;
+            justify-content: center;
+            gap: 20px;
+            font-size: 2rem;
+            unicode-bidi: bidi-override;
+            opacity: 0;
+            transform: scale(1.2);
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+        }
+
+        .star-rating.show {
+            opacity: 1;
+            transform: scale(1.4);
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .star-rating label:hover, 
+        .star-rating label:hover ~ label {
+            color: #f5c518;
+            transform: scale(1.2);
+        }
+
+        .star-rating input:checked ~ label {
+            color: #f5c518;
+        }
+
+        /* Button Styling */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            font-size: 0.9rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <form>
+        <label for="software-engineer">Are you a software engineer?</label>
+        <select id="software-engineer" name="software_engineer" required>
+            <option value="choose">Choose Y/N</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+
+        <div id="rating-container" style="display: none;">
+            <label for="skills-rating">How would you rate your software development skills?</label>
+            <div class="star-rating" id="star-rating">
+                <input type="radio" id="star1" name="skills_rating" value="5" />
+                <label for="star1" title="Novice">&#9733;</label>
+
+                <input type="radio" id="star2" name="skills_rating" value="4" />
+                <label for="star2" title="Beginner">&#9733;</label>
+
+                <input type="radio" id="star3" name="skills_rating" value="3" />
+                <label for="star3" title="Intermediate">&#9733;</label>
+
+                <input type="radio" id="star4" name="skills_rating" value="2" />
+                <label for="star4" title="Advanced">&#9733;</label>
+                
+                <input type="radio" id="star5" name="skills_rating" value="1" />
+                <label for="star5" title="Expert">&#9733;</label>
+                
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    <footer>
+        Designed and developed by Epsit.B
+    </footer>
+
+    <script>
+        const softwareEngineerSelect = document.getElementById('software-engineer');
+        const ratingContainer = document.getElementById('rating-container');
+        const starRating = document.getElementById('star-rating');
+
+        softwareEngineerSelect.addEventListener('change', function () {
+            if (this.value === 'yes') {
+                ratingContainer.style.display = 'block';
+                setTimeout(() => {
+                    starRating.classList.add('show');
+                }, 100);  // Delayed animation
+            } else {
+                starRating.classList.remove('show');
+                setTimeout(() => {
+                    ratingContainer.style.display = 'none';
+                }, 500);  // Smooth hiding with delay
+            }
+        });
+    </script>
+
+</body>
+</html>

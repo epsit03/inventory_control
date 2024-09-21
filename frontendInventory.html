@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script> <!-- SheetJS -->
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Inventory Management</h1>
+
+        <!-- Form -->
+        <form id="inventoryForm" class="form">
+            <!-- Category Selection -->
+            <div id="step-1" class="form-group">
+                <label for="category">Select Category</label>
+                <select id="category" class="input-field" required>
+                    <option value="" disabled selected>Choose category</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Furniture">Furniture</option>
+                    <option value="Stationery">Stationery</option>
+                    <option value="addNewCategory">Add New Category</option>
+                </select>
+                <input type="text" id="newCategoryInput" class="input-field hidden" placeholder="Enter new category">
+                <button type="button" class="next-btn" onclick="showNextStep(2)">Next</button>
+            </div>
+
+            <!-- Brand Selection -->
+            <div id="step-2" class="form-group hidden">
+                <label for="brand">Select Brand</label>
+                <select id="brand" class="input-field" required>
+                    <option value="" disabled selected>Choose brand</option>
+                    <option value="Brand A">Brand A</option>
+                    <option value="Brand B">Brand B</option>
+                    <option value="Brand C">Brand C</option>
+                    <option value="addNewBrand">Add New Brand</option>
+                </select>
+                <input type="text" id="newBrandInput" class="input-field hidden" placeholder="Enter new brand">
+                <button type="button" class="prev-btn" onclick="showPreviousStep(1)">Previous</button>
+                <button type="button" class="next-btn" onclick="showNextStep(3)">Next</button>
+            </div>
+
+            <!-- Product Name -->
+            <div id="step-3" class="form-group hidden">
+                <label for="product">Enter Product Name</label>
+                <select id="product" class="input-field" required>
+                    <option value="" disabled selected>Choose product</option>
+                    <option value="Laptop">Laptop</option>
+                    <option value="Chair">Chair</option>
+                    <option value="Pen">Pen</option>
+                    <option value="addNewProduct">Add New Product</option>
+                </select>
+                <input type="text" id="newProductInput" class="input-field hidden" placeholder="Enter new product name">
+                <button type="button" class="prev-btn" onclick="showPreviousStep(2)">Previous</button>
+                <button type="button" class="next-btn" onclick="showNextStep(4)">Next</button>
+            </div>
+
+            <!-- Issued To -->
+            <div id="step-4" class="form-group hidden">
+                <label for="issuedTo">Issued To</label>
+                <input type="text" id="issuedTo" class="input-field" placeholder="Person or Department" required>
+                <button type="button" class="prev-btn" onclick="showPreviousStep(3)">Previous</button>
+                <button type="button" class="next-btn" onclick="showNextStep(5)">Next</button>
+            </div>
+
+            <!-- Return To -->
+            <div id="step-5" class="form-group hidden">
+                <label for="returnTo">Return To</label>
+                <input type="text" id="returnTo" class="input-field" placeholder="Inventory Manager" required>
+                <button type="button" class="prev-btn" onclick="showPreviousStep(4)">Previous</button>
+                <button type="submit" class="submit-btn">Submit</button>
+            </div>
+        </form>
+
+        <!-- Inventory Dashboard -->
+        <div id="dashboard" class="hidden">
+            <h2>Inventory Dashboard</h2>
+            <table id="inventoryTable" border="1">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Brand</th>
+                        <th>Product Name</th>
+                        <th>Issued To</th>
+                        <th>Return To</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button onclick="downloadExcel()">Download Report</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        const inventoryData = [];
+
+        // Add event listener for form submission
+        document.getElementById('inventoryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const category = document.getElementById('category').value || document.getElementById('newCategoryInput').value;
+            const brand = document.getElementById('brand').value || document.getElementById('newBrandInput').value;
+            const product = document.getElementById('product').value || document.getElementById('newProductInput').value;
+            const issuedTo = document.getElementById('issuedTo').value;
+            const returnTo = document.getElementById('returnTo').value;
+
+            const newItem = { category, brand, product, issuedTo, returnTo };
+            inventoryData.push(newItem);
+
+            displayInventory();
+        });
+
+        // Handle display of new input fields when "Add New" is selected
+        document.getElementById('category').addEventListener('change', function() {
+            const newCategoryInput = document.getElementById('newCategoryInput');
+            if (this.value === 'addNewCategory') {
+                newCategoryInput.classList.remove('hidden');
+            } else {
+                newCategoryInput.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('brand').addEventListener('change', function() {
+            const newBrandInput = document.getElementById('newBrandInput');
+            if (this.value === 'addNewBrand') {
+                newBrandInput.classList.remove('hidden');
+            } else {
+                newBrandInput.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('product').addEventListener('change', function() {
+            const newProductInput = document.getElementById('newProductInput');
+            if (this.value === 'addNewProduct') {
+                newProductInput.classList.remove('hidden');
+            } else {
+                newProductInput.classList.add('hidden');
+            }
+        });
+
+        // Display inventory data on the dashboard
+        function displayInventory() {
+            document.getElementById('dashboard').classList.remove('hidden');
+            const tbody = document.querySelector('#inventoryTable tbody');
+            tbody.innerHTML = '';
+
+            inventoryData.forEach(item => {
+                const row = `<tr>
+                                <td>${item.category}</td>
+                                <td>${item.brand}</td>
+                                <td>${item.product}</td>
+                                <td>${item.issuedTo}</td>
+                                <td>${item.returnTo}</td>
+                            </tr>`;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // Download as Excel file
+        function downloadExcel() {
+            const worksheet = XLSX.utils.json_to_sheet(inventoryData);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Inventory");
+            XLSX.writeFile(workbook, "inventory_report.xlsx");
+        }
+
+        // Navigation between form steps
+        function showNextStep(step) {
+            document.getElementById(`step-${step - 1}`).classList.add('hidden');
+            document.getElementById(`step-${step}`).classList.remove('hidden');
+        }
+
+        function showPreviousStep(step) {
+            document.getElementById(`step-${step + 1}`).classList.add('hidden');
+            document.getElementById(`step-${step}`).classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
