@@ -1,120 +1,189 @@
 <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f6f8;
-      margin: 0;
-      padding: 20px;
-      color: #333;
-    }
-  
-    h1, h2 {
-      font-weight: 600;
-      color: #2c3e50;
-    }
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
 
-    .bleh {
-      display: none; /* Hide everything initially */
-    }
-  
-    form {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      background-color: #ffffff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
-      margin-bottom: 20px;
-      width: 100%;
-    }
-  
-    input, button {
-      padding: 12px 15px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      font-size: 14px;
-      width: calc(33.3333% - 20px);
-      box-sizing: border-box;
-      transition: all 0.3s ease;
-    }
-  
-    input:focus {
-      border-color: #3498db;
-      box-shadow: 0px 4px 8px rgba(52, 152, 219, 0.1);
-      outline: none;
-    }
-  
-    button {
-      background-color: #3498db;
-      color: #ffffff;
-      cursor: pointer;
-      border: none;
-      width: auto;
-    }
-  
-    button:hover {
-      background-color: #2980b9;
-    }
-  
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
-    }
-  
-    th, td {
-      border: none;
-      padding: 16px;
-      text-align: left;
-      font-size: 14px;
-    }
-  
-    th {
-      background-color: #3498db;
-      color: #ffffff;
-      font-weight: 600;
-    }
-  
-    tr:nth-child(even) {
-      background-color: #f9f9f9;
-    }
-  
-    td {
-      color: #7f8c8d;
-    }
-  
-    td button {
-      background-color: #e74c3c;
-      color: #fff;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-  
-    td button:hover {
-      background-color: #c0392b;
-    }
-  
-    #downloadExcel {
-      background-color: #27ae60;
-      color: #fff;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      margin-top: 20px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-  
-    #downloadExcel:hover {
-      background-color: #229954;
-    }
+h1, h2 {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.bleh {
+  display: none; /* Hidden initially */
+  flex-direction: column; /* Align elements vertically */
+  gap: 20px; /* Spacing between elements */
+}
+
+/* Login Form */
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.login-form input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #2980b9;
+}
+
+/* Inventory Form */
+#inventoryForm {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Auto-fit items */
+  gap: 10px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+#inventoryForm input,
+#inventoryForm button {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+#inventoryForm button {
+  background-color: #3498db;
+  color: #ffffff;
+  cursor: pointer;
+  border: none;
+}
+
+#inventoryForm button:hover {
+  background-color: #2980b9;
+}
+
+/* Search Form */
+#searchForm {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#searchForm input {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+#searchForm button {
+  padding: 12px 15px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#searchForm button:hover {
+  background-color: #2980b9;
+}
+
+/* Inventory Table */
+#inventoryTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+th, td {
+  padding: 16px;
+  text-align: left;
+  font-size: 14px;
+}
+
+th {
+  background-color: #3498db;
+  color: #ffffff;
+}
+
+td {
+  color: #7f8c8d;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Buttons */
+#clearInventory,
+#downloadExcel,
+#loadFromExcel {
+  padding: 12px 20px;
+  background-color: #27ae60;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#clearInventory:hover,
+#downloadExcel:hover,
+#loadFromExcel:hover {
+  background-color: #229954;
+}
+
+td button {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+td button:hover {
+  background-color: #c0392b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #inventoryForm {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  #searchForm {
+    flex-direction: column;
+  }
+}
+
   
   </style>
   
