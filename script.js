@@ -5,6 +5,28 @@ function generateProductId() {
   return 'P' + Math.floor(Math.random() * 1000000);
 }
 
+const validUsername = "admin";
+    const validPassword = "admin123";
+
+    // Handle login
+    function handleLogin() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const loginError = document.getElementById('loginError');
+
+      // Check if credentials are correct
+      if (username === validUsername && password === validPassword) {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('inventoryForm').style.display = 'flex';
+        document.querySelector('table').style.display = 'table';
+        document.getElementById('clearInventory').style.display = 'block';
+        document.getElementById('downloadExcel').style.display = 'block';
+        document.getElementById('loadFromExcel').style.display = 'block';
+      } else {
+        loginError.textContent = "Invalid username or password. Please try again.";
+      }
+    }
+
 // Function to add new product
 document.getElementById('inventoryForm').addEventListener('submit', function(e) {
   e.preventDefault();
