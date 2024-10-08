@@ -20,7 +20,7 @@ const validUsername = "admin";
         // document.getElementsByClassName('bleh').style.display = 'flex';
         var elements = document.getElementsByClassName('bleh');
 for (var i = 0; i < elements.length; i++) {
-  elements[i].style.display = 'flexbox';
+  elements[i].style.display = 'show';
 }
 
         document.querySelector('table').style.display = 'table';
