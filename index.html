@@ -115,6 +115,15 @@
   </style>
   
   <h1>Inventory Management</h1>
+
+<!-- Login Form -->
+  <div class="login-form" id="loginForm">
+    <h2>Admin Login</h2>
+    <div class="login-error" id="loginError"></div>
+    <input type="text" id="username" placeholder="Username" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button onclick="handleLogin()">Login</button>
+  </div>
   
   <form id="inventoryForm">
     <input type="text" id="category" placeholder="Category" required />
