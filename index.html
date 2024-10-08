@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inventory Management</title>
-  <style>
+<style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f4f6f8;
@@ -12,77 +6,116 @@
       padding: 20px;
       color: #333;
     }
-
+  
     h1, h2 {
       font-weight: 600;
       color: #2c3e50;
     }
-
-    .login-form, form, table {
-      display: none; /* Hide everything initially */
+  
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
+      width: 100%;
     }
-
+  
     input, button {
       padding: 12px 15px;
       border: 1px solid #ddd;
       border-radius: 6px;
       font-size: 14px;
+      width: calc(33.3333% - 20px);
       box-sizing: border-box;
       transition: all 0.3s ease;
     }
-
+  
     input:focus {
       border-color: #3498db;
       box-shadow: 0px 4px 8px rgba(52, 152, 219, 0.1);
       outline: none;
     }
-
+  
     button {
       background-color: #3498db;
       color: #ffffff;
       cursor: pointer;
       border: none;
+      width: auto;
     }
-
+  
     button:hover {
       background-color: #2980b9;
     }
-
-    /* Add more styling for the login form */
-    .login-form {
-      width: 300px;
-      margin: 100px auto;
-      padding: 20px;
-      background-color: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .login-form input {
+  
+    table {
       width: 100%;
-      margin-bottom: 10px;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
     }
-
-    .login-error {
-      color: red;
-      margin-bottom: 10px;
+  
+    th, td {
+      border: none;
+      padding: 16px;
+      text-align: left;
+      font-size: 14px;
     }
+  
+    th {
+      background-color: #3498db;
+      color: #ffffff;
+      font-weight: 600;
+    }
+  
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  
+    td {
+      color: #7f8c8d;
+    }
+  
+    td button {
+      background-color: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    td button:hover {
+      background-color: #c0392b;
+    }
+  
+    #downloadExcel {
+      background-color: #27ae60;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    #downloadExcel:hover {
+      background-color: #229954;
+    }
+  
   </style>
-</head>
-<body>
-
+  
   <h1>Inventory Management</h1>
-
-  <!-- Login Form -->
-  <div class="login-form" id="loginForm">
-    <h2>Admin Login</h2>
-    <div class="login-error" id="loginError"></div>
-    <input type="text" id="username" placeholder="Username" required />
-    <input type="password" id="password" placeholder="Password" required />
-    <button onclick="handleLogin()">Login</button>
-  </div>
-
-  <!-- Inventory Form -->
+  
   <form id="inventoryForm">
     <input type="text" id="category" placeholder="Category" required />
     <input type="text" id="brand" placeholder="Brand" required />
@@ -91,16 +124,57 @@
     <input type="number" id="price" placeholder="Price" required />
     <button type="submit">Add Product</button>
   </form>
+  
+<!-- document.getElementById('clearInventory').addEventListener('click', function() {
+  localStorage.removeItem('inventory');
+  inventory = [];
+  displayInventory();
+});
 
-  <!-- Inventory Table and Buttons -->
-  <h2>Inventory List</h2>
-  <form id="searchForm">
+document.getElementById('searchForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const searchValue = document.getElementById('search').value.toLowerCase();
+  const filteredInventory = inventory.filter(item => {
+    return item.category.toLowerCase().includes(searchValue) ||
+      item.brand.toLowerCase().includes(searchValue) ||
+      item.product.toLowerCase().includes(searchValue) ||
+      item.quantity.toLowerCase().includes(searchValue) ||
+      item.price.toLowerCase().includes(searchValue) ||
+      item.assignedTo.toLowerCase().includes(searchValue);
+  });
+
+  const inventoryTableBody = document.querySelector('#inventoryTable tbody');
+  inventoryTableBody.innerHTML = '';
+
+  filteredInventory.forEach((item, index) => {
+    inventoryTableBody.innerHTML += `
+      <tr>
+        <td>${item.id}</td>
+        <td>${item.category}</td>
+        <td>${item.brand}</td>
+        <td>${item.product}</td>
+        <td>${item.quantity}</td>
+        <td>${item.price}</td>
+        <td>${item.assignedTo || 'Not Assigned'}</td>
+        <td>
+          <button onclick="assignProduct(${index})">Assign</button>
+        </td>
+      </tr>
+    `;
+  });
+}); -->
+
+<!-- //HTML FOR IMPLEMENTING ABOVE JS -->
+
+<form id="searchForm">
     <input type="text" id="search" placeholder="Search" />
     <button type="submit">Search</button>
-  </form>
+    </form>
 
-  <button id="clearInventory">Clear Inventory</button>
+<button id="clearInventory">Clear Inventory</button>
 
+  <h2>Inventory List</h2>
   <table id="inventoryTable">
     <thead>
       <tr>
@@ -116,154 +190,11 @@
     </thead>
     <tbody></tbody>
   </table>
-
+  
   <button id="downloadExcel">Download Excel</button>
   <input type="file" id="uploadExcel" style="display:none;" />
-  <button id="loadFromExcel">Load Inventory from Excel</button>
+<button id="loadFromExcel">Load Inventory from Excel</button>
 
+  <script src="script.js"></script>
   <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-  <script>
-    // Hardcoded credentials (for demo purposes)
-    const validUsername = "admin";
-    const validPassword = "admin123";
-
-    // Handle login
-    function handleLogin() {
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      const loginError = document.getElementById('loginError');
-
-      // Check if credentials are correct
-      if (username === validUsername && password === validPassword) {
-        document.getElementById('loginForm').style.display = 'none';
-        document.getElementById('inventoryForm').style.display = 'flex';
-        document.querySelector('table').style.display = 'table';
-        document.getElementById('clearInventory').style.display = 'block';
-        document.getElementById('downloadExcel').style.display = 'block';
-        document.getElementById('loadFromExcel').style.display = 'block';
-      } else {
-        loginError.textContent = "Invalid username or password. Please try again.";
-      }
-    }
-
-    // Rest of the inventory management script (same as before)
-    let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-
-    document.getElementById('inventoryForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const newProduct = {
-        id: 'P' + Math.floor(Math.random() * 1000000),
-        category: document.getElementById('category').value,
-        brand: document.getElementById('brand').value,
-        product: document.getElementById('product').value,
-        quantity: document.getElementById('quantity').value,
-        price: document.getElementById('price').value,
-        assignedTo: null
-      };
-
-      inventory.push(newProduct);
-      localStorage.setItem('inventory', JSON.stringify(inventory));
-      displayInventory();
-    });
-
-    function displayInventory() {
-      const inventoryTableBody = document.querySelector('#inventoryTable tbody');
-      inventoryTableBody.innerHTML = '';
-
-      inventory.forEach((item, index) => {
-        inventoryTableBody.innerHTML += `
-          <tr>
-            <td>${item.id}</td>
-            <td>${item.category}</td>
-            <td>${item.brand}</td>
-            <td>${item.product}</td>
-            <td>${item.quantity}</td>
-            <td>${item.price}</td>
-            <td>${item.assignedTo || 'Not Assigned'}</td>
-            <td><button onclick="assignProduct(${index})">Assign</button></td>
-          </tr>
-        `;
-      });
-    }
-
-    displayInventory();
-
-    function assignProduct(index) {
-      const person = prompt('Enter the person name:');
-      if (person) {
-        inventory[index].assignedTo = person;
-        localStorage.setItem('inventory', JSON.stringify(inventory));
-        displayInventory();
-      }
-    }
-
-    document.getElementById('downloadExcel').addEventListener('click', function() {
-      const ws = XLSX.utils.json_to_sheet(inventory);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Inventory');
-      XLSX.writeFile(wb, 'inventory.xlsx');
-    });
-
-    document.getElementById('clearInventory').addEventListener('click', function() {
-      localStorage.removeItem('inventory');
-      inventory = [];
-      displayInventory();
-    });
-
-    document.getElementById('searchForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const searchValue = document.getElementById('search').value.toLowerCase();
-      const filteredInventory = inventory.filter(item => {
-        return item.category.toLowerCase().includes(searchValue) ||
-          item.brand.toLowerCase().includes(searchValue) ||
-          item.product.toLowerCase().includes(searchValue) ||
-          item.quantity.toLowerCase().includes(searchValue) ||
-          item.price.toLowerCase().includes(searchValue) ||
-          item.assignedTo.toLowerCase().includes(searchValue);
-      });
-
-      const inventoryTableBody = document.querySelector('#inventoryTable tbody');
-      inventoryTableBody.innerHTML = '';
-
-      filteredInventory.forEach((item, index) => {
-        inventoryTableBody.innerHTML += `
-          <tr>
-            <td>${item.id}</td>
-            <td>${item.category}</td>
-            <td>${item.brand}</td>
-            <td>${item.product}</td>
-            <td>${item.quantity}</td>
-            <td>${item.price}</td>
-            <td>${item.assignedTo || 'Not Assigned'}</td>
-            <td><button onclick="assignProduct(${index})">Assign</button></td>
-          </tr>
-        `;
-      });
-    });
-
-    document.getElementById('loadFromExcel').addEventListener('click', function() {
-      document.getElementById('uploadExcel').click();
-    });
-
-    document.getElementById('uploadExcel').addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-
-      reader.onload = function(event) {
-        const data = new Uint8Array(event.target.result);
-        const workbook = XLSX.read(data, { type: 'array' });
-        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-        const importedData = XLSX.utils.sheet_to_json(firstSheet);
-
-        inventory = [...inventory, ...importedData];
-        localStorage.setItem('inventory', JSON.stringify(inventory));
-        displayInventory();
-      };
-
-      reader.readAsArrayBuffer(file);
-    });
-  </script>
-</body>
-</html>
+  
