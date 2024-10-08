@@ -17,7 +17,7 @@ const validUsername = "admin";
       // Check if credentials are correct
       if (username === validUsername && password === validPassword) {
         document.getElementById('loginForm').style.display = 'none';
-        document.getElementById('bleh').style.display = 'flex';
+        document.getElementByClassName('bleh').style.display = 'flex';
         // document.querySelector('table').style.display = 'table';
         // document.getElementById('clearInventory').style.display = 'block';
         // document.getElementById('downloadExcel').style.display = 'block';
