@@ -17,11 +17,11 @@ const validUsername = "admin";
       // Check if credentials are correct
       if (username === validUsername && password === validPassword) {
         document.getElementById('loginForm').style.display = 'none';
-        document.getElementById('inventoryForm').style.display = 'flex';
-        document.querySelector('table').style.display = 'table';
-        document.getElementById('clearInventory').style.display = 'block';
-        document.getElementById('downloadExcel').style.display = 'block';
-        document.getElementById('loadFromExcel').style.display = 'block';
+        document.getElementById('bleh').style.display = 'flex';
+        // document.querySelector('table').style.display = 'table';
+        // document.getElementById('clearInventory').style.display = 'block';
+        // document.getElementById('downloadExcel').style.display = 'block';
+        // document.getElementById('loadFromExcel').style.display = 'block';
       } else {
         loginError.textContent = "Invalid username or password. Please try again.";
       }
