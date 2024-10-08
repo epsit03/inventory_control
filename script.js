@@ -4,6 +4,7 @@ let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
 function generateProductId() {
   return 'P' + Math.floor(Math.random() * 1000000);
 }
+var abcd = document.evaluate('/html/body/div[2]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 
 const validUsername = "admin";
     const validPassword = "admin123";
@@ -17,7 +18,7 @@ const validUsername = "admin";
       // Check if credentials are correct
       if (username === validUsername && password === validPassword) {
         document.getElementById('loginForm').style.display = 'none';
-        document.getElementByClassName('bleh').style.display = 'flexbox';
+        abcd.style.display = 'flexbox';
         document.querySelector('table').style.display = 'table';
         document.getElementById('clearInventory').style.display = 'block';
         document.getElementById('downloadExcel').style.display = 'block';
